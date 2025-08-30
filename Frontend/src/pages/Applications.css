@@ -1,0 +1,87 @@
+.applications-page {
+  padding: 40px;
+  background-color: #000;
+  min-height: 100vh;
+  color: white;
+}
+
+.applications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.applications-header h2 {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.ngo-switch-btn {
+  background-color: transparent;
+  color: #4ea1ff;
+  border: 1px solid #4ea1ff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.ngo-switch-btn:hover {
+  background-color: #4ea1ff;
+  color: #000;
+}
+
+.applications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.application-card {
+  background-color: #111;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid #222;
+}
+
+.application-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.application-card .org {
+  font-size: 14px;
+  color: #bbb;
+  margin-bottom: 8px;
+}
+
+.application-card .date {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 12px;
+}
+
+.status {
+  padding: 5px 12px;
+  border-radius: 15px;
+  font-size: 13px;
+  text-align: center;
+  width: fit-content;
+}
+
+.status.accepted {
+  background-color: #1f4f1f;
+  color: #6bff6b;
+}
+
+.status.pending {
+  background-color: #2f2f2f;
+  color: #ccc;
+}
+
+.status.rejected {
+  background-color: #3b0c0c;
+  color: #ff4d4d;
+}

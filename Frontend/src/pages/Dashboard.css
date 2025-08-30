@@ -1,0 +1,147 @@
+.dashboard {
+  padding: 20px;
+  background-color: #0f111a;
+  min-height: 100vh;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Welcome Section */
+.welcome-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #1a1f35, #241d38);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.welcome-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-pic {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.welcome-left h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.welcome-left p {
+  margin: 5px 0 0;
+  color: #ccc;
+}
+
+.profile-btn {
+  background: #0a84ff;
+  border: none;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.profile-btn:hover {
+  background: #006edc;
+}
+
+/* Opportunities Section */
+.opportunities-section {
+  margin-top: 20px;
+}
+
+.opportunities-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.opportunities-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.browse-btn {
+  background: transparent;
+  border: 1px solid #0a84ff;
+  color: #0a84ff;
+  padding: 6px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.browse-btn:hover {
+  background: #0a84ff;
+  color: #fff;
+}
+
+.opportunity-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.opportunity-card {
+  background: #161b2c;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.opportunity-card h4 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.org {
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.time {
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tags span {
+  background: #242b43;
+  color: #ddd;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.details-btn {
+  background: transparent;
+  border: 1px solid #0a84ff;
+  color: #0a84ff;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+}
+
+.details-btn:hover {
+  background: #0a84ff;
+  color: #fff;
+}
