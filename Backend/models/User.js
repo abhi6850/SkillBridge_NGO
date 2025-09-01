@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -37,6 +41,9 @@ const UserSchema = new mongoose.Schema({
   website_url: {
     type: String,
   },
+    // 🔑 OTP fields
+  otp: { type: String },
+  otpExpires: { type: Date },
 }, {
   timestamps: true,
   toJSON: { virtuals: true },

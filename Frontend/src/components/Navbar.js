@@ -25,6 +25,7 @@ const Navbar = () => {
         <Link to="/opportunities" onClick={() => setIsOpen(false)}>Opportunities</Link>
         <Link to="/applications" onClick={() => setIsOpen(false)}>Applications</Link>
         <Link to="/messaging" onClick={() => setIsOpen(false)}>Messages</Link>
+        <Link to="/" onClick={() => setIsOpen(false)}>LogOut</Link>
       </div>
     </nav>
   );
