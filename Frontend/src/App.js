@@ -8,6 +8,9 @@ import Dashboard from "./pages/Dashboard";
 import Opportunities from "./pages/Opportunities";
 import Applications from "./pages/Applications";
 import Messaging from "./pages/Messaging";
+import ForgotPassword from "./pages/ForgotPassword";
+import VerifyOtp from "./pages/VerifyOtp";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const location = useLocation();
@@ -25,6 +28,9 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-otp" element={<VerifyOtp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/applications" element={<Applications />} />
