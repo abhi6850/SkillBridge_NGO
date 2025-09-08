@@ -21,9 +21,6 @@ mongoose
 app.use(express.json());
 app.use(cors());
 
-const authRoutes = require('./routes/auth');
-app.use("/api/auth", authRoutes);
-
 // Test Route
 app.get('/', (req, res) => {
   res.send('API Running...');

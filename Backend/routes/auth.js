@@ -205,4 +205,43 @@ router.get("/me", authMiddleware, async (req, res) => {
   }
 });
 
+// profile
+router.put("/update", authMiddleware, async (req, res) => {
+  try {
+    const {
+      username,
+      name,
+      role,
+      email,
+      location,
+      skills,
+      organization_name,
+      organization_description,
+      website_url,
+    } = req.body;
+
+    let user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    // Volunteer fields
+    if (username) user.username = username;
+    if (name) user.name = name;
+    if (role) user.role = role;
+    if (location) user.location = location;
+    if (skills) user.skills = Array.isArray(skills) ? skills : skills.split(",");
+
+    // NGO fields
+    if (organization_name) user.organization_name = organization_name;
+    if (organization_description) user.organization_description = organization_description;
+    if (website_url) user.website_url = website_url;
+
+    await user.save();
+
+    res.json({ msg: "Profile updated successfully", user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router; 
