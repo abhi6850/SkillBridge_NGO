@@ -1,91 +1,84 @@
-// src/pages/Opportunities.js
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { Link } from "react-router-dom";
 import "./Opportunities.css";
 
-const opportunities = [
-  {
-      title: "Community Garden Project: Urban",
-      org: "Green Thumb Collective",
-      tags: ["Gardening", "Community Outreach", "Logistics"],
-      duration: "3 Months (Weekends)",
-    },
-    {
-      title: "Digital Literacy Workshop",
-      org: "Tech For All Foundation",
-      tags: ["Teaching", "Public Speaking", "Basic IT Skills"],
-      duration: "4 Weeks (Evenings)",
-    },
-    {
-      title: "Animal Shelter Assistant: Care and Support",
-      org: "Paws & Claws Rescue",
-      tags: ["Animal Care", "Cleaning", "Customer Service"],
-      duration: "Ongoing (Flexible)",
-    },
-    {
-      title: "Environmental Cleanup Crew",
-      org: "Riverbend Conservancy",
-      tags: ["Leadership", "Environmental Science", "Heavy Lifting"],
-      duration: "2 Day Event",
-    },
-  {
-    title: "Elderly Companion for Social Visits",
-    org: "Golden Years Support",
-    tags: ["Empathy", "Communication", "Patience"],
-    duration: "6 Months (Weekly)",
-    image: "https://via.placeholder.com/300x180", // Replace with real image
-  },
-  {
-    title: "Food Bank Distribution",
-    org: "Helping Hands Pantry",
-    tags: ["Organization", "Physical Stamina", "Teamwork"],
-    duration: "Weekend Mornings",
-    image: "https://via.placeholder.com/300x180",
-  },
-  {
-    title: "Mentorship Program for Youth",
-    org: "Future Leaders Initiative",
-    tags: ["Mentoring", "Counseling", "Role Modeling"],
-    duration: "9 Months (Bi-weekly)",
-    image: "https://via.placeholder.com/300x180",
-  },
-  {
-    title: "Website Content Editor",
-    org: "Global Aid Alliance",
-    tags: ["Copywriting", "SEO", "WordPress"],
-    duration: "Flexible (Remote)",
-    image: "https://via.placeholder.com/300x180",
-  },
-];
-
 function Opportunities() {
+  const [opportunities, setOpportunities] = useState([]);
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchOpportunities = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setLoading(false);
+          return;
+        }
+
+        const decoded = jwtDecode(token);
+        setUserRole(decoded.user.role);
+
+        if (decoded.user.role === 'ngo') {
+            const res = await axios.get(`http://localhost:5000/api/opportunities/ngo`, {
+                headers: { "x-auth-token": token },
+            });
+            setOpportunities(res.data);
+        }
+        
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch opportunities.");
+        setLoading(false);
+      }
+    };
+    fetchOpportunities();
+  }, []);
+
+  if (loading) return <div className="opportunities">Loading opportunities...</div>;
+  if (error) return <div className="opportunities">{error}</div>;
+  
+  if (userRole === 'ngo') {
+    return (
+      <div className="opportunities">
+        <div className="opportunities-header">
+          <h2>Your Opportunities</h2>
+          <Link to="/create-opportunity" className="create-btn">Create Opportunity</Link>
+        </div>
+        <div className="opportunities-grid">
+          {opportunities.length > 0 ? (
+            opportunities.map((opportunity) => (
+              <div key={opportunity._id} className="opportunity-card">
+                <div className="opportunity-content">
+                  <h3>{opportunity.title}</h3>
+                  <p className="duration">Duration: {opportunity.duration}</p>
+                  <p className="duration">Location: {opportunity.location}</p>
+                  <Link to={`/edit-opportunity/${opportunity._id}`}>
+                    <button className="apply-btn">Edit</button>
+                  </Link>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>You have not created any opportunities yet.</p>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Content for volunteers or unauthenticated users
   return (
     <div className="opportunities">
       <div className="opportunities-header">
-        <input
-          type="text"
-          placeholder="Search opportunities by title or organization..."
-          className="search-bar"
-        />
+        <h2>Access Denied</h2>
       </div>
-
-      <div className="opportunities-grid">
-        {opportunities.map((opportunity, index) => (
-          <div key={index} className="opportunity-card">
-            <img src={opportunity.image} alt={opportunity.title} />
-            <div className="opportunity-content">
-              <h3>{opportunity.title}</h3>
-              <p className="org">{opportunity.org}</p>
-              <div className="tags">
-                {opportunity.tags.map((tag, i) => (
-                  <span key={i} className="tag">{tag}</span>
-                ))}
-              </div>
-              <p className="duration">
-                <strong>Duration:</strong> {opportunity.duration}
-              </p>
-            </div>
-          </div>
-        ))}
+      <div className="opportunities-message">
+        <p>This page is only for NGOs to manage their opportunities.</p>
+        <p>Volunteers can find opportunities on the <Link to="/dashboard">Dashboard</Link>.</p>
       </div>
     </div>
   );
