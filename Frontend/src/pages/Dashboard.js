@@ -1,8 +1,10 @@
 import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -46,7 +48,9 @@ function Dashboard() {
           </div>
         </div>
         <div className="welcome-right">
-          <button className="profile-btn">View Profile</button>
+          <button className="profile-btn" onClick={() => navigate("/profile")}>
+            View Profile
+          </button>
         </div>
       </div>
 

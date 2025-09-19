@@ -20,7 +20,7 @@ app.use(express.json());
 // Enable CORS to allow cross-origin requests from the frontend
 app.use(cors());
 
-// Test Route to check if the API is running
+
 app.get('/', (req, res) => {
   res.send('API Running...');
 });
