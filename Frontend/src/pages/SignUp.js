@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import logo from "../assets/logo.png";
+import "./SignUp.css";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -37,12 +38,13 @@ function SignUp() {
     catch (err) {
   console.error("Backend response:", err.response?.data); 
   console.error("Full error:", err);
-  alert(err.response?.data?.message || "Error creating account");
+  // alert(err.response?.data?.message || "Error creating account");
+  alert(err.response?.data?.msg || "Error creating account");
 }
   };
 
   return (
-    <div className="page">
+    <div className="page signup-page">
       <div className="logo-header">
         <img src={logo} alt="SkillBridge Logo" className="auth-logo" />
         <h3 className="auth-brand">SkillBridge NGO</h3>
@@ -50,7 +52,7 @@ function SignUp() {
 
       <h2>Create Account</h2>
       <form onSubmit={handleSubmit}>
-        <label style={{ display: "block", textAlign: "left", marginBottom: "5px" }}>
+        <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           Username
         </label>
         <input
@@ -60,7 +62,7 @@ function SignUp() {
           required
           onChange={handleChange}
         />
-        <label style={{ display: "block", textAlign: "left", marginBottom: "5px" }}>
+        <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           Full Name
         </label>
           <input
@@ -70,7 +72,7 @@ function SignUp() {
             required
             onChange={handleChange}
           />
-          <label style={{ display: "block", textAlign: "left", marginBottom: "5px" }}>
+          <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           Email
         </label>
         <input
@@ -80,7 +82,7 @@ function SignUp() {
           required
           onChange={handleChange}
         />
-        <label style={{ display: "block", textAlign: "left", marginBottom: "5px" }}>
+        <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           Password
         </label>
         <input
@@ -90,7 +92,7 @@ function SignUp() {
           required
           onChange={handleChange}
         />
-        <label style={{ display: "block", textAlign: "left", marginBottom: "5px" }}>
+        <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           I am a
         </label>
         <select name="role" required onChange={handleChange}>
@@ -120,6 +122,7 @@ function SignUp() {
         {/* ✅ Show NGO fields */}
         {formData.role === "ngo" && (
           <>
+          <div className="flex-box">
             <input
               type="text"
               name="location"
@@ -132,6 +135,8 @@ function SignUp() {
               placeholder="Organization Name"
               onChange={handleChange}
             />
+            </div>
+            <div className="flex-box">
             <textarea
               name="organization_description"
               placeholder="Organization Description"
@@ -143,6 +148,7 @@ function SignUp() {
               placeholder="Website URL (Optional)"
               onChange={handleChange}
             />
+            </div>
           </>
         )}
 

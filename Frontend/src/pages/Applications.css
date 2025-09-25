@@ -85,3 +85,47 @@
   background-color: #3b0c0c;
   color: #ff4d4d;
 }
+
+/* summary-box */
+.applications-summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.summary-box {
+  flex: 1;
+  min-width: 150px;
+  max-width: 200px;
+  padding: 20px;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+.summary-box h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.summary-box p {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Colors for each status */
+.summary-box.accepted {
+  background-color: #28a745; /* green */
+}
+
+.summary-box.pending {
+  background-color: #6c757d; /* gray */
+}
+
+.summary-box.rejected {
+  background-color: #dc3545; /* red */
+}
+
