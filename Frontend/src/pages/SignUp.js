@@ -32,7 +32,6 @@ function SignUp() {
     try {
       const res = await axios.post("http://localhost:5000/api/auth/register", formData);
       alert("Account created successfully!");
-      console.log(res.data);
       navigate("/signin"); // redirect to login page
     } 
     catch (err) {
