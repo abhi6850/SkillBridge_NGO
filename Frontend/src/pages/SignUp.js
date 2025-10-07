@@ -46,7 +46,6 @@ function SignUp() {
     <div className="page signup-page">
       <div className="logo-header">
         <img src={logo} alt="SkillBridge Logo" className="auth-logo" />
-        <h3 className="auth-brand">SkillBridge NGO</h3>
       </div>
 
       <h2>Create Account</h2>

@@ -6,7 +6,6 @@ function LandingPage() {
     <div className="page" style={{ backgroundColor: "#0f111a" }}>
       <div className="logo-header">
               <img src={logo} alt="SkillBridge Logo" className="auth-logo" />
-              <h3 className="auth-brand">SkillBridge NGO</h3>
             </div>
       <div style={{ position: "absolute", top: 20, right: 40 }}>
         <Link to="/signup"><button>Sign Up</button></Link>
@@ -21,6 +20,7 @@ function LandingPage() {
         <Link to="/signup"><button>Join as Volunteer</button></Link>
         <Link to="/signup"><button>Join as NGO</button></Link>
       </div>
+
     </div>
   );
 }

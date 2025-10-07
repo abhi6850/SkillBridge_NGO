@@ -119,6 +119,7 @@ function Dashboard() {
       <div className="opportunities-section">
         <div className="opportunities-header">
           <h3>All Available Opportunities</h3>
+          &nbsp;&nbsp;
           <div className="search-filter-bar">
             <input
               type="text"

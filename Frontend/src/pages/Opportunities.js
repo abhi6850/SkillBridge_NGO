@@ -46,6 +46,7 @@ function Opportunities() {
       <div className="opportunities">
         <div className="opportunities-header">
           <h2>Your Opportunities</h2>
+          &nbsp;&nbsp;
           <Link to="/create-opportunity" className="create-btn">Create Opportunity</Link>
         </div>
         <div className="opportunities-grid">

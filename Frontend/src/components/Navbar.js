@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
-import logo from "../assets/logo.png";
+import whiteLogo from "../assets/whiteLogo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <img src={logo} alt="SkillBridge Logo" className="navbar-logo" />
+        <img src={whiteLogo} alt="SkillBridge Logo" className="navbar-logo" />
       </div>
 
       {/* Hamburger icon */}
