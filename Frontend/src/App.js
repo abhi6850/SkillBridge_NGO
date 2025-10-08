@@ -11,11 +11,15 @@ import Messaging from "./pages/Messaging";
 import ForgotPassword from "./pages/ForgotPassword";
 import VerifyOtp from "./pages/VerifyOtp";
 import ResetPassword from "./pages/ResetPassword";
+import Profile from "./pages/Profile";
+import CreateOpportunity from "./pages/CreateOpportunity";
+// Correct import path for EditProfile
+import EditProfile from "./pages/EditProfile"; 
+import EditOpportunity from "./pages/EditOpportunity";
 
 function App() {
   const location = useLocation();
 
-  // Hide navbar on landing, signup, signin
   const hideNavbar =
     location.pathname === "/" ||
     location.pathname === "/signup" ||
@@ -31,10 +35,15 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/profile" element={<Profile />} />
+        {/* Correct route element for EditProfile */}
+        <Route path="/edit-profile" element={<EditProfile />} /> 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/opportunities" element={<Opportunities />} />
         <Route path="/applications" element={<Applications />} />
         <Route path="/messaging" element={<Messaging />} />
+        <Route path="/create-opportunity" element={<CreateOpportunity />} />
+        <Route path="/edit-opportunity/:id" element={<EditOpportunity />} /> 
       </Routes>
     </>
   );

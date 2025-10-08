@@ -55,7 +55,45 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ msg: "Server error", error: err.message });
   }
 });
+// @route   PUT /api/auth/profile/:id
+// @desc    Update user profile
+// @access  Private (requires token)
+router.put('/profile/:id', authMiddleware, async (req, res) => {
+  const { id } = req.params;
+  const { name, location, skills, organization_name, organization_description, website_url } = req.body;
 
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    // Only allow the user to edit their own profile
+    if (user.id.toString() !== req.user.id) {
+      return res.status(401).json({ msg: 'Not authorized' });
+    }
+
+    // Update fields based on role
+    user.name = name || user.name;
+    user.location = location || user.location;
+
+    if (user.role === 'volunteer') {
+      user.skills = skills || user.skills;
+    } else if (user.role === 'ngo') {
+      user.organization_name = organization_name || user.organization_name;
+      user.organization_description = organization_description || user.organization_description;
+      user.website_url = website_url || user.website_url;
+    }
+
+    await user.save();
+    res.json({ msg: 'Profile updated successfully', user });
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 // @route   POST /api/auth/login
 // @desc    Authenticate user & get token
@@ -65,13 +103,11 @@ router.post('/login', async (req, res) => {
 
   try {
     let user = await User.findOne({ email });
-    console.log("User found:", user);
     if (!user) {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match:", isMatch);
     if (!isMatch) {
       return res.status(400).json({ msg: 'Invalid Credentials' });
     }
@@ -199,6 +235,45 @@ router.get("/me", authMiddleware, async (req, res) => {
     const user = await User.findById(req.user.id).select("-password"); // exclude password
     if (!user) return res.status(404).json({ msg: "User not found" });
     res.json({ user });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+// profile
+router.put("/update", authMiddleware, async (req, res) => {
+  try {
+    const {
+      username,
+      name,
+      role,
+      email,
+      location,
+      skills,
+      organization_name,
+      organization_description,
+      website_url,
+    } = req.body;
+
+    let user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    // Volunteer fields
+    if (username) user.username = username;
+    if (name) user.name = name;
+    if (role) user.role = role;
+    if (location) user.location = location;
+    if (skills) user.skills = Array.isArray(skills) ? skills : skills.split(",");
+
+    // NGO fields
+    if (organization_name) user.organization_name = organization_name;
+    if (organization_description) user.organization_description = organization_description;
+    if (website_url) user.website_url = website_url;
+
+    await user.save();
+
+    res.json({ msg: "Profile updated successfully", user });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

@@ -1,0 +1,9 @@
+.flex-box {
+    display: flex;
+    gap:10px;
+}
+
+.page.signup-page {
+  overflow: hidden;
+  height: 100vh; /* prevents vertical scrolling */
+}

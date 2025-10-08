@@ -70,7 +70,6 @@ const SignIn = () => {
     <div className="auth-container">
       <div className="logo-header">
         <img src={logo} alt="SkillBridge Logo" className="auth-logo" />
-        <h3 className="auth-brand">SkillBridge NGO</h3>
       </div>
 
       <div className="auth-box">
