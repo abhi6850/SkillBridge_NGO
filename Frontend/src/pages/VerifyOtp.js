@@ -8,7 +8,7 @@ function VerifyOtp() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState(location.state?.email || "");
+  const [email] = useState(location.state?.email || "");
   const [otp, setOtp] = useState("");
   const [message, setMessage] = useState("");
   const [timeLeft, setTimeLeft] = useState(600);

@@ -2,7 +2,6 @@ import "./Dashboard.css";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 
 const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
