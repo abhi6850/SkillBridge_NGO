@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import "../App.css"; // Assuming Auth.css styles are in App.css
+import "../App.css";
+
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -30,13 +32,12 @@ function EditProfile() {
         const decoded = jwtDecode(token);
         setUserRole(decoded.user.role);
 
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get(`${API_BASE}/auth/me`, {
           headers: { "x-auth-token": token },
         });
 
         const user = res.data.user;
 
-        // Populate the form data with the current user's details
         setFormData({
           name: user.name,
           location: user.location,
@@ -66,18 +67,18 @@ function EditProfile() {
     try {
       const decoded = jwtDecode(token);
       const userId = decoded.user.id;
-      
+
       const updatedData = { ...formData };
-      if (userRole === 'volunteer') {
-        updatedData.skills = updatedData.skills.split(",").map(skill => skill.trim());
+      if (userRole === "volunteer") {
+        updatedData.skills = updatedData.skills.split(",").map((skill) => skill.trim());
       }
 
-      await axios.put(`http://localhost:5000/api/auth/profile/${userId}`, updatedData, {
+      await axios.put(`${API_BASE}/auth/profile/${userId}`, updatedData, {
         headers: { "x-auth-token": token },
       });
 
       alert("Profile updated successfully!");
-      navigate("/profile"); // Redirect back to the profile page
+      navigate("/profile");
     } catch (err) {
       console.error(err.response?.data || err.message);
       alert("Error updating profile: " + (err.response?.data?.msg || "Server error"));
@@ -107,8 +108,7 @@ function EditProfile() {
             value={formData.location || ""}
             onChange={handleChange}
           />
-          {/* Volunteer specific fields */}
-          {userRole === 'volunteer' && (
+          {userRole === "volunteer" && (
             <>
               <label>Skills:</label>
               <input
@@ -120,8 +120,7 @@ function EditProfile() {
               />
             </>
           )}
-          {/* NGO specific fields */}
-          {userRole === 'ngo' && (
+          {userRole === "ngo" && (
             <>
               <label>Organization Name:</label>
               <input

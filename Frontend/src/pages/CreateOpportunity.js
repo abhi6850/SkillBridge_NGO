@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../App.css"; // Assuming Auth.css styles are in App.css
+import "../App.css";
+
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 const CreateOpportunity = () => {
   const navigate = useNavigate();
@@ -22,24 +24,21 @@ const CreateOpportunity = () => {
     const token = localStorage.getItem("token");
 
     try {
-      // Split skills string into an array before sending
-      const skillsArray = formData.required_skills.split(",").map(skill => skill.trim());
-      
+      const skillsArray = formData.required_skills.split(",").map((skill) => skill.trim());
+
       const opportunityData = {
         ...formData,
         required_skills: skillsArray,
       };
 
       await axios.post(
-        "http://localhost:5000/api/opportunities/create",
+        `${API_BASE}/opportunities/create`,
         opportunityData,
         {
-          headers: {
-            "x-auth-token": token,
-          },
+          headers: { "x-auth-token": token },
         }
       );
-      
+
       alert("Opportunity created successfully!");
       navigate("/dashboard");
     } catch (err) {

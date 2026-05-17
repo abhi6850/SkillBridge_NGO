@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function EditOpportunity() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ function EditOpportunity() {
   useEffect(() => {
     const fetchOpportunity = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/opportunities/${id}`);
+        const res = await axios.get(`${API_BASE}/opportunities/${id}`);
         const opp = res.data;
         setFormData({
           title: opp.title,
@@ -46,23 +48,21 @@ function EditOpportunity() {
     const token = localStorage.getItem("token");
 
     try {
-      const skillsArray = formData.required_skills.split(",").map(skill => skill.trim());
-      
+      const skillsArray = formData.required_skills.split(",").map((skill) => skill.trim());
+
       const opportunityData = {
         ...formData,
         required_skills: skillsArray,
       };
 
       await axios.put(
-        `http://localhost:5000/api/opportunities/${id}/edit`,
+        `${API_BASE}/opportunities/${id}/edit`,
         opportunityData,
         {
-          headers: {
-            "x-auth-token": token,
-          },
+          headers: { "x-auth-token": token },
         }
       );
-      
+
       alert("Opportunity updated successfully!");
       navigate("/opportunities");
     } catch (err) {

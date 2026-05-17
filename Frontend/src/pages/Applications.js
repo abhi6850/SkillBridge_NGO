@@ -3,6 +3,8 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import "./Applications.css";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function Applications() {
   const [applications, setApplications] = useState([]);
   const [userRole, setUserRole] = useState(null);
@@ -24,14 +26,14 @@ function Applications() {
         let res;
         if (decoded.user.role === "ngo") {
           res = await axios.get(
-            "http://localhost:5000/api/opportunities/applications/ngo",
+            `${API_BASE}/opportunities/applications/ngo`,
             {
               headers: { "x-auth-token": token },
             }
           );
         } else {
           res = await axios.get(
-            "http://localhost:5000/api/opportunities/applications/me",
+            `${API_BASE}/opportunities/applications/me`,
             {
               headers: { "x-auth-token": token },
             }
@@ -52,7 +54,7 @@ function Applications() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:5000/api/opportunities/applications/${appId}/status`,
+        `${API_BASE}/opportunities/applications/${appId}/status`,
         { status: newStatus },
         { headers: { "x-auth-token": token } }
       );
@@ -72,18 +74,10 @@ function Applications() {
     return <div className="applications-page">Loading applications...</div>;
   if (error) return <div className="applications-page">{error}</div>;
 
-  // --- Count summary ---
-  const acceptedCount = applications.filter(
-    (app) => app.status === "accepted"
-  ).length;
-  const pendingCount = applications.filter(
-    (app) => app.status === "pending"
-  ).length;
-  const rejectedCount = applications.filter(
-    (app) => app.status === "rejected"
-  ).length;
+  const acceptedCount = applications.filter((app) => app.status === "accepted").length;
+  const pendingCount = applications.filter((app) => app.status === "pending").length;
+  const rejectedCount = applications.filter((app) => app.status === "rejected").length;
 
-  // NGO View
   if (userRole === "ngo") {
     return (
       <div className="applications-page">
@@ -91,7 +85,6 @@ function Applications() {
           <h2>Manage Applicants</h2>
         </div>
 
-        {/* Summary Boxes */}
         <div className="applications-summary">
           <div className="summary-box accepted">
             <h3>Accepted</h3>
@@ -125,17 +118,13 @@ function Applications() {
                   {app.status === "pending" && (
                     <>
                       <button
-                        onClick={() =>
-                          handleUpdateStatus(app._id, "accepted")
-                        }
+                        onClick={() => handleUpdateStatus(app._id, "accepted")}
                         className="action-btn accept-btn"
                       >
                         Accept
                       </button>
                       <button
-                        onClick={() =>
-                          handleUpdateStatus(app._id, "rejected")
-                        }
+                        onClick={() => handleUpdateStatus(app._id, "rejected")}
                         className="action-btn reject-btn"
                       >
                         Reject
@@ -153,14 +142,12 @@ function Applications() {
     );
   }
 
-  // Volunteer View
   return (
     <div className="applications-page">
       <div className="applications-header">
         <h2>My Applications</h2>
       </div>
 
-      {/* Summary Boxes */}
       <div className="applications-summary">
         <div className="summary-box accepted">
           <h3>Accepted</h3>

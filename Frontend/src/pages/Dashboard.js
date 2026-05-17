@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [opportunities, setOpportunities] = useState([]);
@@ -27,12 +29,12 @@ function Dashboard() {
           return;
         }
 
-        const userRes = await axios.get("http://localhost:5000/api/auth/me", {
+        const userRes = await axios.get(`${API_BASE}/auth/me`, {
           headers: { "x-auth-token": token },
         });
         setUser(userRes.data.user);
 
-        const oppRes = await axios.get("http://localhost:5000/api/opportunities");
+        const oppRes = await axios.get(`${API_BASE}/opportunities`);
         setOpportunities(oppRes.data);
 
         setLoading(false);
@@ -54,7 +56,7 @@ function Dashboard() {
       }
 
       await axios.post(
-        "http://localhost:5000/api/opportunities/apply",
+        `${API_BASE}/opportunities/apply`,
         { opportunityId },
         { headers: { "x-auth-token": token } }
       );
@@ -66,7 +68,6 @@ function Dashboard() {
     }
   };
 
-  // Apply Search + Filters (case-insensitive)
   const filteredOpportunities = opportunities.filter((opportunity) => {
     const matchesSearch =
       opportunity.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

@@ -1,7 +1,8 @@
-// Frontend/src/pages/VerifyOtp.js
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 function VerifyOtp() {
   const location = useLocation();
@@ -10,9 +11,8 @@ function VerifyOtp() {
   const [email, setEmail] = useState(location.state?.email || "");
   const [otp, setOtp] = useState("");
   const [message, setMessage] = useState("");
-  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(600);
 
-  // Timer countdown
   useEffect(() => {
     if (timeLeft <= 0) return;
 
@@ -23,7 +23,6 @@ function VerifyOtp() {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // Format time mm:ss
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -33,10 +32,10 @@ function VerifyOtp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/verify-otp", { email, otp });
+      const res = await axios.post(`${API_BASE}/auth/verify-otp`, { email, otp });
       setMessage(res.data.msg);
       alert("OTP verified! You can now reset your password.");
-      navigate("/reset-password", { state: { email } }); // redirect to reset password page
+      navigate("/reset-password", { state: { email } });
     } catch (err) {
       setMessage(err.response?.data?.msg || "Error verifying OTP");
     }
@@ -56,11 +55,17 @@ function VerifyOtp() {
           required
           style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
         />
-        <button type="submit" style={{ width: "100%", padding: "10px" }} disabled={timeLeft <= 0}>
+        <button
+          type="submit"
+          style={{ width: "100%", padding: "10px" }}
+          disabled={timeLeft <= 0}
+        >
           Verify OTP
         </button>
       </form>
-      {timeLeft <= 0 && <p style={{ color: "red" }}>OTP expired! Please request a new one.</p>}
+      {timeLeft <= 0 && (
+        <p style={{ color: "red" }}>OTP expired! Please request a new one.</p>
+      )}
       <p>{message}</p>
     </div>
   );

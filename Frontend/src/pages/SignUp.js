@@ -4,6 +4,8 @@ import axios from "axios";
 import logo from "../assets/logo.png";
 import "./SignUp.css";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function SignUp() {
   const navigate = useNavigate();
 
@@ -20,26 +22,21 @@ function SignUp() {
     website_url: ""
   });
 
-  // Handle input change
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", formData);
+      await axios.post(`${API_BASE}/auth/register`, formData);
       alert("Account created successfully!");
-      navigate("/signin"); // redirect to login page
-    } 
-    catch (err) {
-  console.error("Backend response:", err.response?.data); 
-  console.error("Full error:", err);
-  // alert(err.response?.data?.message || "Error creating account");
-  alert(err.response?.data?.msg || "Error creating account");
-}
+      navigate("/signin");
+    } catch (err) {
+      console.error("Backend response:", err.response?.data);
+      alert(err.response?.data?.msg || "Error creating account");
+    }
   };
 
   return (
@@ -63,14 +60,14 @@ function SignUp() {
         <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           Full Name
         </label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter your Full Name"
-            required
-            onChange={handleChange}
-          />
-          <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter your Full Name"
+          required
+          onChange={handleChange}
+        />
+        <label style={{ display: "block", textAlign: "left", marginBottom: "1.5px" }}>
           Email
         </label>
         <input
@@ -99,7 +96,6 @@ function SignUp() {
           <option value="ngo">NGO / Organization</option>
         </select>
 
-        {/* ✅ Show Volunteer fields */}
         {formData.role === "volunteer" && (
           <>
             <input
@@ -117,35 +113,34 @@ function SignUp() {
           </>
         )}
 
-        {/* ✅ Show NGO fields */}
         {formData.role === "ngo" && (
           <>
-          <div className="flex-box">
-            <input
-              type="text"
-              name="location"
-              placeholder="Location (Optional)"
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="organization_name"
-              placeholder="Organization Name"
-              onChange={handleChange}
-            />
+            <div className="flex-box">
+              <input
+                type="text"
+                name="location"
+                placeholder="Location (Optional)"
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="organization_name"
+                placeholder="Organization Name"
+                onChange={handleChange}
+              />
             </div>
             <div className="flex-box">
-            <textarea
-              name="organization_description"
-              placeholder="Organization Description"
-              onChange={handleChange}
-            ></textarea>
-            <input
-              type="url"
-              name="website_url"
-              placeholder="Website URL (Optional)"
-              onChange={handleChange}
-            />
+              <textarea
+                name="organization_description"
+                placeholder="Organization Description"
+                onChange={handleChange}
+              ></textarea>
+              <input
+                type="url"
+                name="website_url"
+                placeholder="Website URL (Optional)"
+                onChange={handleChange}
+              />
             </div>
           </>
         )}
@@ -160,4 +155,3 @@ function SignUp() {
 }
 
 export default SignUp;
-

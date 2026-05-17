@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function Profile() {
   const [user, setUser] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -14,7 +16,7 @@ function Profile() {
           setLoading(false);
           return;
         }
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await axios.get(`${API_BASE}/auth/me`, {
           headers: { "x-auth-token": token },
         });
         setUser(res.data.user);
@@ -34,11 +36,9 @@ function Profile() {
   const handleSave = async () => {
     try {
       const token = localStorage.getItem("token");
-
-      // The URL for the PUT request needs to include the user ID
       const res = await axios.put(
-        `http://localhost:5000/api/auth/profile/${user.id}`, // ✅ Corrected URL
-        user, // ✅ Send the entire user object
+        `${API_BASE}/auth/profile/${user.id}`,
+        user,
         { headers: { "x-auth-token": token } }
       );
 
@@ -97,7 +97,6 @@ function Profile() {
               style={styles.input}
             />
 
-            {/* Volunteer fields */}
             {user.role === "volunteer" && (
               <>
                 <label style={styles.label}>Location</label>
@@ -120,7 +119,6 @@ function Profile() {
               </>
             )}
 
-            {/* NGO fields */}
             {user.role === "ngo" && (
               <>
                 <label style={styles.label}>Location</label>
@@ -172,44 +170,24 @@ function Profile() {
           </div>
         ) : (
           <div style={styles.details}>
-            <p>
-              <b>Username:</b> {user.username}
-            </p>
-            <p>
-              <b>Name:</b> {user.name}
-            </p>
-            <p>
-              <b>Email:</b> {user.email}
-            </p>
-            <p>
-              <b>Role:</b> {user.role}
-            </p>
+            <p><b>Username:</b> {user.username}</p>
+            <p><b>Name:</b> {user.name}</p>
+            <p><b>Email:</b> {user.email}</p>
+            <p><b>Role:</b> {user.role}</p>
 
             {user.role === "volunteer" && (
               <>
-                <p>
-                  <b>Location:</b> {user.location}
-                </p>
-                <p>
-                  <b>Skills:</b> {(user.skills || []).join(", ")}
-                </p>
+                <p><b>Location:</b> {user.location}</p>
+                <p><b>Skills:</b> {(user.skills || []).join(", ")}</p>
               </>
             )}
 
             {user.role === "ngo" && (
               <>
-                <p>
-                  <b>Location:</b> {user.location}
-                </p>
-                <p>
-                  <b>Organization:</b> {user.organization_name}
-                </p>
-                <p>
-                  <b>Description:</b> {user.organization_description}
-                </p>
-                <p>
-                  <b>Website:</b> {user.website_url}
-                </p>
+                <p><b>Location:</b> {user.location}</p>
+                <p><b>Organization:</b> {user.organization_name}</p>
+                <p><b>Description:</b> {user.organization_description}</p>
+                <p><b>Website:</b> {user.website_url}</p>
               </>
             )}
 
@@ -240,20 +218,9 @@ const styles = {
     boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
     textAlign: "center",
   },
-  heading: {
-    marginBottom: "20px",
-    color: "white",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "left",
-  },
-  label: {
-    margin: "8px 0 5px 0",
-    fontWeight: "500",
-    color: "white",
-  },
+  heading: { marginBottom: "20px", color: "white" },
+  form: { display: "flex", flexDirection: "column", textAlign: "left" },
+  label: { margin: "8px 0 5px 0", fontWeight: "500", color: "white" },
   input: {
     padding: "10px",
     marginBottom: "15px",
@@ -280,10 +247,7 @@ const styles = {
     fontSize: "15px",
     cursor: "pointer",
   },
-  details: {
-    textAlign: "left",
-    lineHeight: "1.6",
-  },
+  details: { textAlign: "left", lineHeight: "1.6" },
 };
 
 export default Profile;

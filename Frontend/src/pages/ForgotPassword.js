@@ -1,7 +1,8 @@
-// Frontend/src/pages/ForgotPassword.js
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ function ForgotPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/forgot-password", { email });
+      const res = await axios.post(`${API_BASE}/auth/forgot-password`, { email });
       setMessage(res.data.msg);
       navigate("/verify-otp", { state: { email } });
     } catch (err) {

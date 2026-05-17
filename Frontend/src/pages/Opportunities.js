@@ -4,6 +4,8 @@ import { jwtDecode } from "jwt-decode";
 import { Link } from "react-router-dom";
 import "./Opportunities.css";
 
+const API_BASE = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+
 function Opportunities() {
   const [opportunities, setOpportunities] = useState([]);
   const [userRole, setUserRole] = useState(null);
@@ -22,13 +24,13 @@ function Opportunities() {
         const decoded = jwtDecode(token);
         setUserRole(decoded.user.role);
 
-        if (decoded.user.role === 'ngo') {
-            const res = await axios.get(`http://localhost:5000/api/opportunities/ngo`, {
-                headers: { "x-auth-token": token },
-            });
-            setOpportunities(res.data);
+        if (decoded.user.role === "ngo") {
+          const res = await axios.get(`${API_BASE}/opportunities/ngo`, {
+            headers: { "x-auth-token": token },
+          });
+          setOpportunities(res.data);
         }
-        
+
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch opportunities.");
@@ -40,8 +42,8 @@ function Opportunities() {
 
   if (loading) return <div className="opportunities">Loading opportunities...</div>;
   if (error) return <div className="opportunities">{error}</div>;
-  
-  if (userRole === 'ngo') {
+
+  if (userRole === "ngo") {
     return (
       <div className="opportunities">
         <div className="opportunities-header">
@@ -71,7 +73,6 @@ function Opportunities() {
     );
   }
 
-  // Content for volunteers or unauthenticated users
   return (
     <div className="opportunities">
       <div className="opportunities-header">
