@@ -1,9 +1,100 @@
-.flex-box {
-    display: flex;
-    gap:10px;
+* {
+  box-sizing: border-box;
 }
 
 .page.signup-page {
-  overflow: hidden;
-  height: 100vh; /* prevents vertical scrolling */
+  background-color: #0f111a;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 16px 40px;
+}
+
+.page.signup-page h2 {
+  font-size: 22px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.page.signup-page form {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.page.signup-page input,
+.page.signup-page select,
+.page.signup-page textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background: #1a1a1a;
+  color: white;
+  font-size: 14px;
+}
+
+.page.signup-page input::placeholder,
+.page.signup-page textarea::placeholder {
+  color: #888;
+}
+
+.page.signup-page button[type="submit"] {
+  width: 100%;
+  padding: 13px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.page.signup-page button[type="submit"]:hover {
+  background: #0056b3;
+}
+
+.page.signup-page p {
+  color: #ccc;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.page.signup-page a {
+  color: #007bff;
+}
+
+.flex-box {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.flex-box input,
+.flex-box textarea {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 480px) {
+  .page.signup-page {
+    padding: 90px 14px 40px;
+  }
+
+  .flex-box {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .page.signup-page input,
+  .page.signup-page select,
+  .page.signup-page textarea {
+    font-size: 16px; /* prevents iOS zoom */
+  }
 }

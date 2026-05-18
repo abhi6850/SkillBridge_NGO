@@ -1,52 +1,45 @@
-/* Center the auth forms in the screen */
+* {
+  box-sizing: border-box;
+}
+
 .page {
   background-color: #0f111a;
-  color:white;
+  color: white;
 }
+
 .auth-container {
-  height: 100vh; /* full screen height */
-  width: 100vw;  /* full screen width */
-  place-items: center;
+  min-height: 100vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background: #f9fafc; */
   background-color: #0f111a;
   font-family: Arial, Helvetica, sans-serif;
   position: relative;
-  overflow-x: hidden;
-
+  padding: 80px 16px 30px;
 }
 
-/* White card box */
 .auth-box {
-  padding: 40px;
+  padding: 36px 28px;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  width: 400px;
-  /* max-width: 50%; */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 420px;
   text-align: center;
-  
-  /* color:white !important; */
-  /* background: white; */
-  /* background: #161b2c; */
   background: #1a1a1a;
   color: white;
 }
 
-/* Title */
 .auth-box h2 {
   margin-bottom: 20px;
-  /* color: #333; */
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
 }
 
-/* Input fields */
 .auth-box input {
-  width: 90%;
+  width: 100%;
   padding: 12px 15px;
-  margin: 10px 0;
+  margin: 8px 0;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 14px;
@@ -58,11 +51,10 @@
   border-color: #007bff;
 }
 
-/* Buttons */
 .auth-box button {
-  width: 98%;
+  width: 100%;
   padding: 12px;
-  margin-top: 15px;
+  margin-top: 14px;
   border: none;
   border-radius: 8px;
   background: #007bff;
@@ -76,123 +68,100 @@
   background: #0056b3;
 }
 
-/* Links */
 .link {
   color: #007bff;
-  /* color: red; */
   cursor: pointer;
   text-decoration: underline;
   font-size: 14px;
-  
 }
-.forgot  {
+
+.forgot {
   display: block;
-  text-align: right !important;
-  /* color: red !important; */
+  text-align: right;
 }
 
 .link:hover {
   color: #0056b3;
 }
 
-/* Paragraphs */
 .auth-box p {
   margin-top: 12px;
   font-size: 14px;
 }
 
-/* Logo Header (top-left) */
-/* Logo Header (top-left stacked) */
 .logo-header {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
   display: flex;
-  flex-direction: column;  /* stack vertically */
+  flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 
 .auth-logo {
-  width: 200px;
-  height: 65px;
+  width: 160px;
+  height: auto;
   object-fit: contain;
-  margin-bottom: 10px;
 }
 
 .auth-brand {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   color: #007bff;
 }
 
 .action-buttons {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .action-btn {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  flex: 1;
 }
 
 .accept-btn {
-    background-color: #28a745;
-    color: white;
+  background-color: #28a745;
+  color: white;
 }
 
 .reject-btn {
-    background-color: #dc3545;
-    color: white;
+  background-color: #dc3545;
+  color: white;
 }
 
-.action-buttons {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-}
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 90px 14px 30px;
+    align-items: flex-start;
+  }
 
-.action-btn {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
+  .auth-box {
+    padding: 28px 18px;
+    border-radius: 12px;
+  }
 
-.accept-btn {
-    background-color: #28a745;
-    color: white;
-}
+  .auth-logo {
+    width: 130px;
+  }
 
-.reject-btn {
-    background-color: #dc3545;
-    color: white;
-}
-.action-buttons {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-}
+  .auth-box h2 {
+    font-size: 20px;
+  }
 
-.action-btn {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-}
+  .auth-box input {
+    font-size: 16px; /* prevents iOS zoom */
+    padding: 12px 12px;
+  }
 
-.accept-btn {
-    background-color: #28a745;
-    color: white;
-}
-
-.reject-btn {
-    background-color: #dc3545;
-    color: white;
+  .auth-box button {
+    font-size: 15px;
+    padding: 13px;
+  }
 }

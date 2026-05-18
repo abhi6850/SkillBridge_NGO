@@ -1,100 +1,161 @@
+* {
+  box-sizing: border-box;
+}
+
 .opportunities {
-  padding: 20px;
-  background: #111;
+  padding: 24px 16px;
+  background: #0f111a;
   color: #fff;
   min-height: 100vh;
 }
 
 .opportunities-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.opportunities-header h2 {
+  margin: 0;
+  font-size: 20px;
 }
 
 .search-bar {
-  padding: 10px 15px;
+  padding: 10px 14px;
   border-radius: 8px;
   border: none;
   outline: none;
-  width: 300px;
-  background: #222;
+  background: #161b2c;
   color: #fff;
+  font-size: 14px;
+  width: 100%;
+  max-width: 280px;
 }
 
 .opportunities-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
 }
 
 .opportunity-card {
-  background: #1a1a1a;
+  background: #161b2c;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease;
 }
 
 .opportunity-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
 }
 
 .opportunity-card img {
   width: 100%;
-  height: 180px;
+  height: 160px;
   object-fit: cover;
 }
 
 .opportunity-content {
-  padding: 15px;
+  padding: 14px;
 }
 
 .opportunity-content h3 {
-  margin: 0;
-  font-size: 18px;
+  margin: 0 0 6px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .org {
   color: #bbb;
-  margin: 5px 0 10px 0;
-  font-size: 14px;
+  margin: 4px 0 8px;
+  font-size: 13px;
 }
 
 .tags {
   margin-bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 .tag {
   display: inline-block;
-  background: #333;
-  color: #fff;
+  background: #242b43;
+  color: #ddd;
   font-size: 12px;
   padding: 4px 8px;
   border-radius: 6px;
-  margin: 3px;
 }
 
 .duration {
-  font-size: 14px;
+  font-size: 13px;
   color: #ccc;
+  margin-bottom: 4px;
 }
 
 .create-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
+  background-color: #28a745;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+  white-space: nowrap;
 }
+
 .apply-btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.apply-btn:hover {
+  background-color: #0056b3;
+}
+
+.opportunities-message {
+  color: #ccc;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.opportunities-message a {
+  color: #007bff;
+}
+
+@media (max-width: 600px) {
+  .opportunities {
+    padding: 16px 12px;
+  }
+
+  .opportunities-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar {
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .opportunities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .create-btn {
     width: 100%;
-    margin-top: 10px;
+    text-align: center;
+    display: block;
+  }
 }

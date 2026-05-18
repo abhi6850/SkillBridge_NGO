@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -6,6 +10,7 @@
   padding: 10px 20px;
   color: white;
   position: relative;
+  z-index: 100;
 }
 
 .navbar-left {
@@ -14,32 +19,37 @@
 }
 
 .navbar-logo {
-  width: 180px;
-  height: 65px;
+  width: 150px;
+  height: auto;
+  max-height: 55px;
+  object-fit: contain;
   margin-right: 10px;
 }
 
 .navbar-right {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 
 .navbar-right a {
   text-decoration: none;
   color: white;
   font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
 }
 
 .navbar-right a:hover {
   text-decoration: underline;
 }
 
-/* Hamburger menu (hidden on large screens) */
 .hamburger {
   display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
+  padding: 4px;
 }
 
 .hamburger span {
@@ -47,9 +57,10 @@
   height: 3px;
   background: white;
   border-radius: 2px;
+  display: block;
+  transition: 0.3s;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .hamburger {
     display: flex;
@@ -59,11 +70,13 @@
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
-    right: 20px;
+    top: 100%;
+    right: 0;
+    left: 0;
     background: #007bff;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 12px 20px;
+    gap: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   }
 
   .navbar-right.active {
@@ -71,6 +84,16 @@
   }
 
   .navbar-right a {
-    margin: 10px 0;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    font-size: 16px;
+  }
+
+  .navbar-right a:last-child {
+    border-bottom: none;
+  }
+
+  .navbar-logo {
+    width: 120px;
   }
 }

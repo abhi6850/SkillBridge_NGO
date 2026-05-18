@@ -1,12 +1,15 @@
+* {
+  box-sizing: border-box;
+}
+
 .dashboard {
-  padding: 20px;
+  padding: 20px 16px;
   background-color: #0f111a;
   min-height: 100vh;
   color: #fff;
   font-family: Arial, sans-serif;
 }
 
-/* Welcome Section */
 .welcome-card {
   display: flex;
   justify-content: space-between;
@@ -14,7 +17,9 @@
   background: linear-gradient(to right, #1a1f35, #241d38);
   border-radius: 12px;
   padding: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .welcome-left {
@@ -23,57 +28,55 @@
   gap: 15px;
 }
 
-.profile-pic {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-}
-
 .welcome-left h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .welcome-left p {
   margin: 5px 0 0;
   color: #ccc;
+  font-size: 14px;
 }
 
 .profile-btn {
   background: #0a84ff;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 18px;
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .profile-btn:hover {
   background: #006edc;
 }
 
-/* Opportunities Section */
 .opportunities-section {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .opportunities-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .opportunities-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 .search-filter-bar {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .search-bar {
@@ -84,7 +87,7 @@
   background: #161b2c;
   color: #fff;
   font-size: 14px;
-  width: 220px;
+  width: 180px;
 }
 
 .filter-btn {
@@ -95,18 +98,19 @@
   color: #fff;
   cursor: pointer;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 .filter-btn:hover {
   background: #006edc;
 }
 
-/* Filter Panel */
 .filters-panel {
   display: flex;
   justify-content: flex-end;
-  gap: 15px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .filters-panel select {
@@ -114,10 +118,11 @@
   color: #fff;
   border: 1px solid #2a3350;
   border-radius: 6px;
-  padding: 6px 10px;
+  padding: 7px 10px;
   font-size: 14px;
   cursor: pointer;
-  min-width: 150px;
+  min-width: 130px;
+  flex: 1;
 }
 
 .filters-panel select:focus {
@@ -125,16 +130,15 @@
   border-color: #0a84ff;
 }
 
-/* Opportunity Cards */
 .opportunity-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 16px;
 }
 
 .opportunity-card {
   background: #161b2c;
-  padding: 20px;
+  padding: 18px;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -142,32 +146,34 @@
 }
 
 .opportunity-card h4 {
-  margin: 0 0 10px;
-  font-size: 16px;
+  margin: 0 0 8px;
+  font-size: 15px;
   color: #fff;
 }
 
 .org {
   color: #aaa;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  font-size: 13px;
 }
 
 .time {
   color: #ddd;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  font-size: 13px;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 15px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 
 .tags span {
   background: #242b43;
   color: #ddd;
-  padding: 5px 10px;
+  padding: 4px 10px;
   border-radius: 20px;
   font-size: 12px;
 }
@@ -182,10 +188,60 @@
   cursor: pointer;
   text-align: center;
   font-size: 14px;
+  width: 100%;
 }
 
 .details-btn:hover,
 .apply-btn:hover {
   background: #0a84ff;
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    padding: 14px 12px;
+  }
+
+  .welcome-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .welcome-right {
+    width: 100%;
+  }
+
+  .profile-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .opportunities-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-filter-bar {
+    width: 100%;
+  }
+
+  .search-bar {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    font-size: 16px;
+  }
+
+  .filters-panel {
+    justify-content: flex-start;
+  }
+
+  .filters-panel select {
+    font-size: 15px;
+  }
+
+  .opportunity-cards {
+    grid-template-columns: 1fr;
+  }
 }
